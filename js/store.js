@@ -54,25 +54,33 @@ export function addNewHistory(newHistory) {
      * - store의 detailList 새로 갱신
      * - store.currentFunds 새로 갱신
      */
-    store.detailList = null;
-    store.currentFunds = null;
-
+    console.log('newHistory',newHistory);
+    console.log('store' , store);
+    if(store.detailList[store.todayId]){
+      store.detailList[store.todayId].push(newHistory)
+      console.log(store);
+    } else{
+      store.detailList[store.todayId] = [newHistory];
+    }   
+    // 현재 자산 - amount
+    store.currentFunds -= newHistory.amount;
     updateStorage();
     return true;
   } catch (error) {
-    alert(error);
+    console.log(error);
     return false;
   }
 }
 
-export function removeHistory(dateId, itemId) {
+export function removeHistory(dateid, itemId) {
   try {
-    // TODO:
-    /**
-     * - store의 detailList 새로 갱신
-     * - store.currentFunds 새로 갱신
-     */
-    store.detailList[dateId] = null;
+    store.detailList[dateid] = store.detailList[dateid].filter
+    (({id, amount}) => {
+      if(id === Number(itemId)){
+        store.currentFunds += amount;
+      }
+      return id !== Number(itemId)
+    });
 
     updateStorage();
     return true;

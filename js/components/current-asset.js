@@ -1,5 +1,5 @@
-import { store, updateStorage } from "../store";
-import { toHidden, toShow } from "../util";
+import { store, updateStorage } from "../../js/store.js";
+import { toHidden, toShow } from "../../js/util.js";
 
 const $currentAssetInput = document.querySelector(".current-asset-input");
 const $currentAssetValue = document.querySelector(".current-asset-value");
@@ -39,6 +39,8 @@ function addCurrentAssetEventListener() {
 export function renderCurrentAsset() {
   // TODO: 숫자에 콤마 작성
   // TODO: currentFunds가 없는 경우
-  $currentAssetValue.textContent = store.currentFunds ?? "-";
+  $currentAssetValue.textContent = store.currentFunds ? 
+  store.currentFunds.toLocaleString() 
+  : "0";
   $currentAssetInput.value = store.currentFunds;
 }

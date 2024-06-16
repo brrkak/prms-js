@@ -1,7 +1,7 @@
-import { validatePrice, validateRequired, toHidden, toShow } from "../util";
-import { store, addNewHistory } from "../store";
-import { renderHistoryList } from "./history-list";
-import { renderCurrentAsset } from "./current-asset";
+import { validatePrice, validateRequired, toHidden, toShow } from "../../js/util.js";
+import { store, addNewHistory } from "../../js/store.js";
+import { renderHistoryList } from "../../js/components/history-list.js";
+import { renderCurrentAsset } from "../../js/components/current-asset.js";
 
 const $addItemButton = document.querySelector(".add-item-button");
 const $addItemDetail = document.querySelector(".add-item-detail");
@@ -39,7 +39,7 @@ function addItemEditEventListener() {
       return alert("현재 자산 이상의 금액을 작성하셨습니다.");
 
     const newHistory = {
-      createAt: new Date(),
+      createAt: new Date(), 
       id: Date.now(),
       description: $addItemDescription.value,
       category: $addItemCategory.value,
@@ -51,7 +51,7 @@ function addItemEditEventListener() {
       alert("소비내역 저장에 실패했습니다.");
       return;
     }
-
+    console.log(newHistory.id);
     toHidden($addItemDetail);
     toShow($addItemButton);
     initAddItemInput();
